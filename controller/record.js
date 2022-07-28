@@ -1,12 +1,13 @@
 const Record = require('../models/record')
 const mongoose = require('mongoose')
+const _ = require('lodash')
 
 function create(req, res, next) {
-    let productId = req.body.productId;
-    let productName = req.body.productName;
-    let productDesc = req.body.productDesc;
-    let userId = req.body.userId;
-    let record = new Record({
+    const productId = req.body.productId;
+    const productName = req.body.productName;
+    const productDesc = req.body.productDesc;
+    const userId = req.user.userId;
+    const record = new Record({
         productId,
         productName,
         productDesc,
@@ -18,8 +19,9 @@ function create(req, res, next) {
 }
 
 function view(req, res, next) {
-    Record.find({}).then((data) => {
-        res.send({ data: data })
+    const userId = req.user.userId;
+    Record.find({userId}).then((data) => {
+        res.send({ data: data})
     })
 }
 
@@ -40,7 +42,16 @@ function remove(req, res, next) {
         res.send({ success: "Deletion successfull" });
     })
 }
+
+async function deleteByIds(req,res,next){
+    const productIds= req.body.deleteByIds
+    const userId = req.user.userId;
+    Record.deleteMany({ _id : { $in: productIds }}).then(data=> {
+        res.send({ success: "Deletion successfull" });
+    })
+}
 module.exports.create = create
 module.exports.view = view
 module.exports.update = update
 module.exports.remove = remove
+module.exports.deleteByIds = deleteByIds
