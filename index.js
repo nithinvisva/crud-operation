@@ -7,7 +7,7 @@ const auth= require('./middleware/auth')
 var app = express()
 //Route
 app.use(cors({
-    origin: "https://crud-angular-ap.herokuapp.com/"
+    origin: "*"
 })
 )
 app.use('/record',auth.auth, record);
