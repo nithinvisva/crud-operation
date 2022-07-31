@@ -37,6 +37,7 @@ mongoose.connect(url,connectionParams)
 //   console.log('Error', err);
 // })
 //Server
-app.listen(8000,function(){
+const port = process.env.port || 8000;
+app.listen(port,function(){
   console.log('Server is Up')
 })
