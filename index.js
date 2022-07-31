@@ -10,6 +10,9 @@ app.use(cors({
     origin: "*"
 })
 )
+app.get('/',(res,req)=>{
+  console.log('working')
+})
 app.use('/record',auth.auth, record);
 app.use('/users', router);
 //MongoDB connection
