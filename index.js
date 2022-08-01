@@ -3,7 +3,7 @@ const record = require('./routes/record')
 const router = require('./routes/users')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const auth= require('./middleware/auth')
+const auth= require('./src/middleware/auth')
 var app = express()
 //Route
 app.use(cors({
